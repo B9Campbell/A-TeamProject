@@ -29,8 +29,8 @@ public class TournamentGUI extends Application {
 			        int addition = c*(2+4*r);
 			        System.out.println(addition);
 			        grid.add(new Label(" "), c, (r*4) + addition, 1, 1);
-	                grid.add(tournament.getMatch(r, c).getTeamLabel(1), c, (r*4 + 1) + addition, 1, 1);
-	                grid.add(tournament.getMatch(r, c).getTeamLabel(2), c, (r*4 + 2) + addition, 1, 1);
+	                grid.add(tournament.getMatch(r, c).getTeamHBox(1), c, (r*4 + 1) + addition, 1, 1);
+	                grid.add(tournament.getMatch(r, c).getTeamHBox(2), c, (r*4 + 2) + addition, 1, 1);
 	                grid.add(new Label(" "), c, (r*4 + 3) + addition, 1, 1);
 	                
 	            }

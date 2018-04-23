@@ -21,10 +21,15 @@ public class Match {
         team2Label = new Label("none");
         
         team1Field = new TextField("Score");
+        team1Field.setPrefWidth(50);
         team2Field = new TextField("Score");
+        team2Field.setPrefWidth(50);
         
         team1Box = new HBox();
         team2Box = new HBox();
+        
+        team1Box.getChildren().addAll(team1Label, team1Field);
+        team2Box.getChildren().addAll(team2Label, team2Field);
     }
     
     /** 
@@ -48,7 +53,15 @@ public class Match {
     
     public HBox getTeamHBox(int number)
     {
-        return null;
+        if(number == 1)
+        {
+            return team1Box;
+        } else if(number ==2)
+        {
+            return team2Box;
+        } else {
+            return null; //should throw an error here
+        }
     }
 
 }
