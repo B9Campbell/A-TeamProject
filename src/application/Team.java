@@ -17,7 +17,7 @@ public class Team {
 		return this.name;
 	}
 	
-	public getRank(){
+	public int getRank(){
 		return this.rank;
 	}
 
