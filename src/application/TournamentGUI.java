@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -32,6 +34,7 @@ public class TournamentGUI extends Application {
 			{
 			    for(int r = 0; r < bracket.get(c).length; r++)
 	            {
+			        //add matches
 			        int count = (tableHeight/bracket.get(c).length);
 			        int start = ((count/2) - 2) + r*count;
 
@@ -39,6 +42,28 @@ public class TournamentGUI extends Application {
 	                grid.add(tournament.getMatch(r, c).getTeamHBox(1), c, start + 1, 1, 1);
 	                grid.add(tournament.getMatch(r, c).getTeamHBox(2), c, start + 2, 1, 1);
 	                grid.add(new Label(" "), c, start + 3, 1, 1);
+	                
+	                
+	                //add lines
+	                if(c != bracket.size()-1) //don't put a line after the final!
+	                {
+                        if(r%2 == 0) //even ones should point down
+                        {
+                            grid.add(new ImageView(new Image("/corner_down.gif")), c+1, start + 1, 1, 2);
+                            
+                            for(int i = 0; i < c*c + c*2; i++) //add straight lines based on how far they need to go
+                            {
+                                grid.add(new ImageView(new Image("/straight.gif")), c+1, start+2 + i, 1, 3);
+                            }
+                        } else { //odd should point up
+                            grid.add(new ImageView(new Image("/corner_up.gif")), c+1, start + 1, 1, 2);
+                            
+                            for(int i = 0; i < c*c + c*2; i++) //add straight lines based on how far they need to go
+                            {
+                                grid.add(new ImageView(new Image("/straight.gif")), c+1, start - 1 - i, 1, 3);
+                            }
+                        }
+	                }
 	                
 	            }
 			}
