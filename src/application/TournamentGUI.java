@@ -1,5 +1,6 @@
 package application;
 	
+import javafx.scene.control.Button;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -75,6 +76,17 @@ public class TournamentGUI extends Application {
             }
 			grid.add(new Label("   Final Round") , bracket.size()-1, 0, 1, 1);
 			
+			//adds the "commit scores", and "reset scores" buttons
+			//Buttons grow to the size of the text
+			Button btn1 = new Button("Commit Score");
+			Button btn2 = new Button("Reset Scores");
+			HBox hBox = new HBox();
+			HBox.setHgrow(btn1, Priority.ALWAYS);
+			HBox.setHgrow(btn2, Priority.ALWAYS);
+			hBox.getChildren().addAll(btn1,btn2);
+			grid.add(hBox, 0, grid.impl_getRowCount(),2,1);
+			
+			
 			//adding the header
 			Label header = new Label("Tournament Bracket");
 			header.setStyle("-fx-font: 36 arial;");
@@ -85,7 +97,7 @@ public class TournamentGUI extends Application {
 			
 			root.setMargin(scroll, new Insets(20,20,20,20));
 			
-			Scene scene = new Scene(root,800,400);
+			Scene scene = new Scene(root,650,950);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
