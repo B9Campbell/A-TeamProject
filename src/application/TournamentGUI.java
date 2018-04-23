@@ -2,6 +2,7 @@ package application;
 	
 import java.util.ArrayList;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -22,8 +23,10 @@ public class TournamentGUI extends Application {
 			
 			ArrayList<Match[]> bracket = tournament.getBracket();
 			GridPane grid = new GridPane();
-			grid.setGridLinesVisible(true);
+
+			//grid.setGridLinesVisible(true);
 			
+			//adding the matched to the grid layout, this algorithm only works for the first two columns as you can see
 			for(int c = 0; c < bracket.size(); c++)
 			{
 			    for(int r = 0; r < bracket.get(c).length; r++)
@@ -38,15 +41,24 @@ public class TournamentGUI extends Application {
 	            }
 			}
 			
+			//adding labels for the round numbers
+			for(int c = 0; c < bracket.size()-1; c++)
+            {
+                grid.add(new Label("   Round " + (c+1)), c, 0, 1, 1);
+            }
+			grid.add(new Label("   Final Round") , bracket.size()-1, 0, 1, 1);
 			
-			Label Header = new Label("Tournament Bracket");
-			Header.setStyle("-fx-font: 36 arial;");
+			//adding the header
+			Label header = new Label("Tournament Bracket");
+			header.setStyle("-fx-font: 36 arial;");
 			
 			scroll.setContent(grid);
 			root.setCenter(scroll);
-			root.setTop(Header);
+			root.setTop(header);
 			
-			Scene scene = new Scene(root,400,400);
+			root.setMargin(scroll, new Insets(20,20,20,20));
+			
+			Scene scene = new Scene(root,800,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

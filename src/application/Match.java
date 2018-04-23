@@ -15,10 +15,30 @@ public class Match {
     private HBox team1Box;
     private HBox team2Box;
     
+    private int team1Score;
+    private int Team2Score;
+    
     public Match()
     {
-        team1Label = new Label("none");
-        team2Label = new Label("none");
+        team1Label = new Label("TBD");
+        team2Label = new Label("TBD");
+        
+        team1Field = new TextField("Score");
+        team1Field.setPrefWidth(50);
+        team2Field = new TextField("Score");
+        team2Field.setPrefWidth(50);
+        
+        team1Box = new HBox();
+        team2Box = new HBox();
+        
+        team1Box.getChildren().addAll(team1Label, team1Field);
+        team2Box.getChildren().addAll(team2Label, team2Field);
+    }
+    
+    public Match(String team1, String team2)
+    {
+        team1Label = new Label(team1);
+        team2Label = new Label(team2);
         
         team1Field = new TextField("Score");
         team1Field.setPrefWidth(50);
@@ -33,24 +53,11 @@ public class Match {
     }
     
     /** 
-     * Returns the team based on the number
+     * Returns the HBox to be put in this matches cell in the grid
      * 
      * @param number of the team to return
-     * @return the team name
+     * @return the HBox
      */
-    public Label getTeamLabel(int number)
-    {
-        if(number == 1)
-        {
-            return team1Label;
-        } else if(number ==2)
-        {
-            return team2Label;
-        } else {
-            return null; //should throw an error here
-        }
-    }
-    
     public HBox getTeamHBox(int number)
     {
         if(number == 1)
