@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -16,6 +17,7 @@ public class TournamentGUI extends Application {
 		try {
 		    
 			BorderPane root = new BorderPane();
+			ScrollPane scroll = new ScrollPane();
 			Tournament tournament = new Tournament();
 			
 			ArrayList<Match[]> bracket = tournament.getBracket();
@@ -36,7 +38,13 @@ public class TournamentGUI extends Application {
 	            }
 			}
 			
-			root.setCenter(grid);
+			
+			Label Header = new Label("Tournament Bracket");
+			Header.setStyle("-fx-font: 36 arial;");
+			
+			scroll.setContent(grid);
+			root.setCenter(scroll);
+			root.setTop(Header);
 			
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
