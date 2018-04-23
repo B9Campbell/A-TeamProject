@@ -12,5 +12,13 @@ public class Team {
 		this.name = name;
 		this.rank = rank;
 	}
+	
+	public String getName(){
+		return this.name;
+	}
+	
+	public getRank(){
+		return this.rank;
+	}
 
 }
