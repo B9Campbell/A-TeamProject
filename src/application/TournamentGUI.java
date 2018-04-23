@@ -34,7 +34,7 @@ public class TournamentGUI extends Application {
 	            {
 			        int count = (tableHeight/bracket.get(c).length);
 			        int start = ((count/2) - 2) + r*count;
-			        System.out.println(start);
+
 			        grid.add(new Label(" "), c, start, 1, 1);
 	                grid.add(tournament.getMatch(r, c).getTeamHBox(1), c, start + 1, 1, 1);
 	                grid.add(tournament.getMatch(r, c).getTeamHBox(2), c, start + 2, 1, 1);
