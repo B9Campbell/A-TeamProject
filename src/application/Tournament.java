@@ -17,14 +17,14 @@ public class Tournament {
         bracket.add(new Match[1]);
         
         //hard coding team names
-        bracket.get(0)[0] = new Match("Chalenger1", "Chalenger16");
-        bracket.get(0)[1] = new Match("Chalenger8", "Chalenger9");
-        bracket.get(0)[2] = new Match("Chalenger4", "Chalenger13");
-        bracket.get(0)[3] = new Match("Chalenger5", "Chalenger12");
-        bracket.get(0)[4] = new Match("Chalenger2", "Chalenger15");
-        bracket.get(0)[5] = new Match("Chalenger7", "Chalenger10");
-        bracket.get(0)[6] = new Match("Chalenger3", "Chalenger14");
-        bracket.get(0)[7] = new Match("Chalenger6", "Chalenger11");
+        bracket.get(0)[0] = new Match("Challenger1", "Challenger16");
+        bracket.get(0)[1] = new Match("Challenger8", "Challenger9");
+        bracket.get(0)[2] = new Match("Challenger4", "Challenger13");
+        bracket.get(0)[3] = new Match("Challenger5", "Challenger12");
+        bracket.get(0)[4] = new Match("Challenger2", "Challenger15");
+        bracket.get(0)[5] = new Match("Challenger7", "Challenger10");
+        bracket.get(0)[6] = new Match("Challenger3", "Challenger14");
+        bracket.get(0)[7] = new Match("Challenger6", "Challenger11");
         
     }
     

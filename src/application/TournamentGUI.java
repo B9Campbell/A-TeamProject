@@ -27,16 +27,18 @@ public class TournamentGUI extends Application {
 			//grid.setGridLinesVisible(true);
 			
 			//adding the matched to the grid layout, this algorithm only works for the first two columns as you can see
+			int tableHeight = bracket.get(0).length*4;
 			for(int c = 0; c < bracket.size(); c++)
 			{
 			    for(int r = 0; r < bracket.get(c).length; r++)
 	            {
-			        int addition = c*(2+4*r);
-			        System.out.println(addition);
-			        grid.add(new Label(" "), c, (r*4) + addition, 1, 1);
-	                grid.add(tournament.getMatch(r, c).getTeamHBox(1), c, (r*4 + 1) + addition, 1, 1);
-	                grid.add(tournament.getMatch(r, c).getTeamHBox(2), c, (r*4 + 2) + addition, 1, 1);
-	                grid.add(new Label(" "), c, (r*4 + 3) + addition, 1, 1);
+			        int count = (tableHeight/bracket.get(c).length);
+			        int start = ((count/2) - 2) + r*count;
+			        System.out.println(start);
+			        grid.add(new Label(" "), c, start, 1, 1);
+	                grid.add(tournament.getMatch(r, c).getTeamHBox(1), c, start + 1, 1, 1);
+	                grid.add(tournament.getMatch(r, c).getTeamHBox(2), c, start + 2, 1, 1);
+	                grid.add(new Label(" "), c, start + 3, 1, 1);
 	                
 	            }
 			}
