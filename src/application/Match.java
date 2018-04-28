@@ -1,55 +1,78 @@
 package application;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 public class Match {
     
-    private Label team1Label;
-    private Label team2Label;
+    private Team team1;
+    private Team team2;
     
-    private TextField team1Field;
-    private TextField team2Field;
-    
-    private HBox team1Box;
-    private HBox team2Box;
-    
-    private int team1Score;
-    private int Team2Score;
+    private Button submitButton;
     
     public Match()
     {
-        team1Label = new Label("TBD");
-        team2Label = new Label("TBD");
+        team1 = new Team();
+        team2 = new Team();
         
-        team1Field = new TextField("Score");
-        team1Field.setPrefWidth(50);
-        team2Field = new TextField("Score");
-        team2Field.setPrefWidth(50);
+        submitButton = new Button("Submit Scores");
         
-        team1Box = new HBox();
-        team2Box = new HBox();
-        
-        team1Box.getChildren().addAll(team1Label, team1Field);
-        team2Box.getChildren().addAll(team2Label, team2Field);
+        submitButton.setOnAction(e -> {
+            team1.getScoreField().setDisable(true);
+            team2.getScoreField().setDisable(true);
+            
+            try
+            {
+                if(Integer.parseInt(team1.getScoreField().getText().trim()) > Integer.parseInt(team2.getScoreField().getText().trim()))
+                {
+                    TournamentGUI.tournament.setNextTeam(this, team1.getName());
+                } else if(Integer.parseInt(team2.getScoreField().getText().trim()) > Integer.parseInt(team1.getScoreField().getText().trim()))
+                {
+                    TournamentGUI.tournament.setNextTeam(this, team2.getName());
+                } else {
+                    // TODO: implement error for tie
+                }
+            } catch(Exception err)
+            {
+                // TODO: implement error for non-int input
+                System.out.println("not int");
+                err.printStackTrace();
+            }
+        });
     }
     
-    public Match(String team1, String team2)
+    public Match(String team1Name, String team2Name)
     {
-        team1Label = new Label(team1);
-        team2Label = new Label(team2);
+        team1 = new Team(team1Name);
+        team2 = new Team(team2Name);
         
-        team1Field = new TextField("Score");
-        team1Field.setPrefWidth(50);
-        team2Field = new TextField("Score");
-        team2Field.setPrefWidth(50);
+        submitButton = new Button("Submit Scores");
         
-        team1Box = new HBox();
-        team2Box = new HBox();
-        
-        team1Box.getChildren().addAll(team1Label, team1Field);
-        team2Box.getChildren().addAll(team2Label, team2Field);
+        submitButton.setOnAction(e -> {
+            team1.getScoreField().setDisable(true);
+            team2.getScoreField().setDisable(true);
+            
+            try
+            {
+                if(Integer.parseInt(team1.getScoreField().getText().trim()) > Integer.parseInt(team2.getScoreField().getText().trim()))
+                {
+                    TournamentGUI.tournament.setNextTeam(this, team1.getName());
+                } else if(Integer.parseInt(team2.getScoreField().getText().trim()) > Integer.parseInt(team1.getScoreField().getText().trim()))
+                {
+                    TournamentGUI.tournament.setNextTeam(this, team2.getName());
+                } else {
+                    // TODO: implement error for tie
+                }
+            } catch(Exception err)
+            {
+                // TODO: implement error for non-int input
+                System.out.println("not int");
+                err.printStackTrace();
+            }
+        });
     }
     
     /** 
@@ -62,13 +85,45 @@ public class Match {
     {
         if(number == 1)
         {
-            return team1Box;
+            return team1.getBox();
         } else if(number ==2)
         {
-            return team2Box;
+            return team2.getBox();
         } else {
             return null; //should throw an error here
         }
+    }
+    
+    public Team getTeam(int number)
+    {
+        if(number == 1)
+        {
+            return team1;
+        } else if(number ==2)
+        {
+            return team2;
+        } else {
+            return null; //should throw an error here
+        }
+    }
+    
+    public void setTeamName(int number, String s)
+    {
+        if(number == 1)
+        {
+            
+            team1.getNameLabel().setText(s);
+        } else if(number == 2)
+        {
+            team2.getNameLabel().setText(s);
+        } else {
+             //should throw an error here
+        }
+    }
+    
+    public Button getSubmit()
+    {
+        return submitButton;
     }
 
 }

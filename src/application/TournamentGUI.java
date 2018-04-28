@@ -18,13 +18,15 @@ import javafx.scene.layout.Priority;
 
 
 public class TournamentGUI extends Application {
+    
+    public static Tournament tournament;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 		    
 			BorderPane root = new BorderPane();
 			ScrollPane scroll = new ScrollPane();
-			Tournament tournament = new Tournament();
+			tournament = new Tournament();
 			
 			ArrayList<Match[]> bracket = tournament.getBracket();
 			GridPane grid = new GridPane();
@@ -40,11 +42,15 @@ public class TournamentGUI extends Application {
 			        //add matches
 			        int count = (tableHeight/bracket.get(c).length);
 			        int start = ((count/2) - 2) + r*count;
+			        
+			        int colStart = c*2;
 
-			        grid.add(new Label(" "), c, start, 1, 1);
-	                grid.add(tournament.getMatch(r, c).getTeamHBox(1), c, start + 1, 1, 1);
-	                grid.add(tournament.getMatch(r, c).getTeamHBox(2), c, start + 2, 1, 1);
-	                grid.add(new Label(" "), c, start + 3, 1, 1);
+			        grid.add(new Label(" "), colStart, start, 1, 1);
+	                grid.add(tournament.getMatch(r, c).getTeamHBox(1), colStart, start + 1, 1, 1);
+	                grid.add(tournament.getMatch(r, c).getTeamHBox(2), colStart, start + 2, 1, 1);
+	                grid.add(new Label(" "), colStart, start + 3, 1, 1);
+	                
+	                grid.add(tournament.getMatch(r, c).getSubmit(), colStart+1, start + 1, 1, 2);
 	                
 	                
 	                //add lines
@@ -52,18 +58,18 @@ public class TournamentGUI extends Application {
 	                {
                         if(r%2 == 0) //even ones should point down
                         {
-                            grid.add(new ImageView(new Image("/corner_down.gif")), c+1, start + 1, 1, 2);
+                            grid.add(new ImageView(new Image("/corner_down.gif")), colStart+2, start + 1, 1, 2);
                             
                             for(int i = 0; i < c*c + c*2; i++) //add straight lines based on how far they need to go
                             {
-                                grid.add(new ImageView(new Image("/straight.gif")), c+1, start+2 + i, 1, 3);
+                                grid.add(new ImageView(new Image("/straight.gif")), colStart+2, start+2 + i, 1, 3);
                             }
                         } else { //odd should point up
-                            grid.add(new ImageView(new Image("/corner_up.gif")), c+1, start + 1, 1, 2);
+                            grid.add(new ImageView(new Image("/corner_up.gif")), colStart+2, start + 1, 1, 2);
                             
                             for(int i = 0; i < c*c + c*2; i++) //add straight lines based on how far they need to go
                             {
-                                grid.add(new ImageView(new Image("/straight.gif")), c+1, start - 1 - i, 1, 3);
+                                grid.add(new ImageView(new Image("/straight.gif")), colStart+2, start - 1 - i, 1, 3);
                             }
                         }
 	                }
@@ -74,19 +80,9 @@ public class TournamentGUI extends Application {
 			//adding labels for the round numbers
 			for(int c = 0; c < bracket.size()-1; c++)
             {
-                grid.add(new Label("   Round " + (c+1)), c, 0, 1, 1);
+                grid.add(new Label("   Round " + (c+1)), c*2, 0, 1, 1);
             }
-			grid.add(new Label("   Final Round") , bracket.size()-1, 0, 1, 1);
-			
-			//adds the "commit scores", and "reset scores" buttons
-			//Buttons grow to the size of the text
-			Button btn1 = new Button("Commit Score");
-			Button btn2 = new Button("Reset Scores");
-			HBox hBox = new HBox();
-			HBox.setHgrow(btn1, Priority.ALWAYS);
-			HBox.setHgrow(btn2, Priority.ALWAYS);
-			hBox.getChildren().addAll(btn1,btn2);
-			grid.add(hBox, 0, grid.impl_getRowCount(),2,1);
+			grid.add(new Label("   Final Round") , bracket.size()*2-2, 0, 1, 1);
 			
 			
 			//adding the header
