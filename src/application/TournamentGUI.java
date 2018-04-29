@@ -60,16 +60,16 @@ public class TournamentGUI extends Application {
                         {
                             grid.add(new ImageView(new Image("/corner_down.gif")), colStart+2, start + 1, 1, 2);
                             
-                            for(int i = 0; i < c*c + c*2; i++) //add straight lines based on how far they need to go
+                            for(int i = 0; i < 2*Math.pow(2, c)-2; i++) //add straight lines based on how far they need to go
                             {
-                                grid.add(new ImageView(new Image("/straight.gif")), colStart+2, start+2 + i, 1, 3);
+                                grid.add(new ImageView(new Image("/straight.gif")), colStart+2, start+2 + i, 1, 2);
                             }
                         } else { //odd should point up
                             grid.add(new ImageView(new Image("/corner_up.gif")), colStart+2, start + 1, 1, 2);
                             
-                            for(int i = 0; i < c*c + c*2; i++) //add straight lines based on how far they need to go
+                            for(int i = 0; i < 2*Math.pow(2, c)-2; i++) //add straight lines based on how far they need to go
                             {
-                                grid.add(new ImageView(new Image("/straight.gif")), colStart+2, start - 1 - i, 1, 3);
+                                grid.add(new ImageView(new Image("/straight.gif")), colStart+2, start - i, 1, 2);
                             }
                         }
 	                }
