@@ -1,5 +1,7 @@
 package application;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -13,6 +15,12 @@ public class Match {
     
     private Button submitButton;
     
+    private Alert alert;
+    
+    private Alert winners;
+    
+    
+    
     public Match()
     {
         team1 = new Team();
@@ -20,59 +28,70 @@ public class Match {
         
         submitButton = new Button("Submit Scores");
         
+        alert = new Alert(AlertType.WARNING);
+        winners = new Alert(AlertType.INFORMATION);
+        
         submitButton.setOnAction(e -> {
-            team1.getScoreField().setDisable(true);
-            team2.getScoreField().setDisable(true);
             
             try
             {
-                if(Integer.parseInt(team1.getScoreField().getText().trim()) > Integer.parseInt(team2.getScoreField().getText().trim()))
+                if(team1.getName().trim().toUpperCase().equals("TBD") || team2.getName().trim().toUpperCase().equals("TBD"))
                 {
-                    TournamentGUI.tournament.setNextTeam(this, team1.getName());
-                } else if(Integer.parseInt(team2.getScoreField().getText().trim()) > Integer.parseInt(team1.getScoreField().getText().trim()))
-                {
-                    TournamentGUI.tournament.setNextTeam(this, team2.getName());
+                    alert.setTitle("Warning");
+                    alert.setHeaderText("Warning, one or more teams in this match has yet to be determined!");
+                    alert.setContentText("Please complete scores for the previous games and click the \"Submit Scores\" button.");
+                    alert.showAndWait();
+                } else if (Integer.parseInt(team1.getScoreField().getText().trim()) == Integer.parseInt(team2.getScoreField().getText().trim())) {
+                    alert.setTitle("Warning");
+                    alert.setHeaderText("Warning, this match cannot be a tie!");
+                    alert.setContentText("Please rectify the issue and click the \"Submit Scores\" button.");
+                    alert.showAndWait();
                 } else {
-                    // TODO: implement error for tie
+                    
+                        
+                    if(Integer.parseInt(team1.getScoreField().getText().trim()) > Integer.parseInt(team2.getScoreField().getText().trim()))
+                    {
+                        if(!TournamentGUI.tournament.setNextTeam(this, team1.getName(), team2))
+                        {
+                            alert.setTitle("Tournament Over");
+                            alert.setHeaderText("We have a winner!");
+                            alert.setContentText("First Place: " + team1.getName() + "\nSecond Place: " + team2.getName() + "\nThirdPlace: ");
+                            alert.showAndWait();
+                        }
+                        
+                        team1.getScoreField().setDisable(true);
+                        team2.getScoreField().setDisable(true);
+                    } else if(Integer.parseInt(team2.getScoreField().getText().trim()) > Integer.parseInt(team1.getScoreField().getText().trim()))
+                    {
+                        if(!TournamentGUI.tournament.setNextTeam(this, team2.getName(), team1))
+                        {
+                            String third = (Integer.parseInt(team1.getRunnerUp().getScoreField().getText()) > (Integer.parseInt(team2.getRunnerUp().getScoreField().getText()))) ? team1.getRunnerUp().getName() : team2.getRunnerUp().getName();
+                            alert.setTitle("Tournament Over");
+                            alert.setHeaderText("We have a winner!");
+                            alert.setContentText("First Place: " + team2.getName() + "\nSecond Place: " + team1.getName() + "\nThirdPlace: " +  third);
+                            alert.showAndWait();
+                        }
+                        
+                        team1.getScoreField().setDisable(true);
+                        team2.getScoreField().setDisable(true);
+                    }
                 }
             } catch(Exception err)
             {
-                // TODO: implement error for non-int input
-                System.out.println("not int");
-                err.printStackTrace();
+                alert.setTitle("Warning");
+                alert.setHeaderText("Warning, non integer input for score");
+                alert.setContentText("Please only choose integer scores.");
+                alert.showAndWait();
             }
         });
     }
     
     public Match(String team1Name, String team2Name)
     {
+        this();
         team1 = new Team(team1Name);
         team2 = new Team(team2Name);
         
-        submitButton = new Button("Submit Scores");
-        
-        submitButton.setOnAction(e -> {
-            team1.getScoreField().setDisable(true);
-            team2.getScoreField().setDisable(true);
-            
-            try
-            {
-                if(Integer.parseInt(team1.getScoreField().getText().trim()) > Integer.parseInt(team2.getScoreField().getText().trim()))
-                {
-                    TournamentGUI.tournament.setNextTeam(this, team1.getName());
-                } else if(Integer.parseInt(team2.getScoreField().getText().trim()) > Integer.parseInt(team1.getScoreField().getText().trim()))
-                {
-                    TournamentGUI.tournament.setNextTeam(this, team2.getName());
-                } else {
-                    // TODO: implement error for tie
-                }
-            } catch(Exception err)
-            {
-                // TODO: implement error for non-int input
-                System.out.println("not int");
-                err.printStackTrace();
-            }
-        });
     }
     
     /** 

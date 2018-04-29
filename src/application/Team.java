@@ -7,17 +7,21 @@ import javafx.scene.layout.HBox;
 public class Team {
 	
     private Label name;
+    private Team runnerup;
+    private Label spacer;
     private TextField scoreField;
     private HBox teamBox;
 	
 	public Team(){
-	    this.name = new Label("TBD - ");
+	    this.name = new Label("TBD");
         scoreField = new TextField("Score");
         scoreField.setPrefWidth(50);
         
+        spacer = new Label(" - ");
+        
         teamBox = new HBox();
         
-        teamBox.getChildren().addAll(this.name, scoreField);
+        teamBox.getChildren().addAll(this.name, spacer, scoreField);
 	}
 	
 	public Team(String name){
@@ -25,9 +29,11 @@ public class Team {
 		scoreField = new TextField("Score");
 		scoreField.setPrefWidth(50);
 		
+		spacer = new Label(" - ");
+		
 		teamBox = new HBox();
 		
-		teamBox.getChildren().addAll(this.name, scoreField);
+		teamBox.getChildren().addAll(this.name, spacer, scoreField);
 	}
 	
 	public String getName(){
@@ -42,6 +48,16 @@ public class Team {
 	{
 	    return teamBox;
 	}
+	
+	public Team getRunnerUp()
+	{
+	    return runnerup;
+	}
+	
+	public void setRunnerUp(Team r)
+    {
+        runnerup = r;
+    }
 	
 	public TextField getScoreField()
 	{

@@ -52,7 +52,6 @@ public class TournamentGUI extends Application {
 	                
 	                grid.add(tournament.getMatch(r, c).getSubmit(), colStart+1, start + 1, 1, 2);
 	                
-	                
 	                //add lines
 	                if(c != bracket.size()-1) //don't put a line after the final!
 	                {
