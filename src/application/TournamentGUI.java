@@ -37,8 +37,7 @@ public class TournamentGUI extends Application {
 		try {
 			BorderPane root = new BorderPane();
 			ScrollPane scroll = new ScrollPane();
-			tournament = new Tournament();
-			tournament.teamNames = teams;
+			tournament = new Tournament(teams);
 			ArrayList<Match[]> bracket = tournament.getBracket();
 			GridPane grid = new GridPane();
 
@@ -124,6 +123,7 @@ public class TournamentGUI extends Application {
 				teams.add(team);
 				System.out.println(team);
 			}
+			br.close();
 		}catch(FileNotFoundException fnf){
 			System.out.println("No file found");
 		}catch(Exception e){

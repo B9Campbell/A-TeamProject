@@ -11,20 +11,20 @@ public class Tournament {
     
     public Tournament()
     {
-        teamNames = sortTeams(teamNames);
-
+ 
+    	teamNames = sortTeams(teamNames);
+    	for(int i =0,j=0; i< teamNames.size()/2; i++, j+=2){
+        	bracket.add(new Match[i]);
+        	bracket.get(0)[i] = new Match(teamNames.get(j), teamNames.get(j+1));
+        }
+        
         //temporary
         bracket = new ArrayList<Match[]>();
         //bracket.add(new Match[8]);
         //bracket.add(new Match[4]);
         //bracket.add(new Match[2]);
         //bracket.add(new Match[1]);
-        
-        
-        for(int i =0,j=0; i< teamNames.size()/2; i++, j+=2){
-        	bracket.add(new Match[i]);
-        	bracket.get(0)[i] = new Match(teamNames.get(j), teamNames.get(j+1));
-        }
+
         
         //hard coding team names
         //bracket.get(0)[0] = new Match("Challenger 1", "Challenger 16");
@@ -44,6 +44,26 @@ public class Tournament {
             }
         }
         
+    }
+    public Tournament(ArrayList<String> team)
+    {
+    	this.teamNames = team;
+    	teamNames = sortTeams(teamNames);
+    	for(int i =0,j=0; i< teamNames.size()/2; i++, j+=2){
+        	bracket.add(new Match[i]);
+        	bracket.get(0)[i] = new Match(teamNames.get(j), teamNames.get(j+1));
+        }
+        
+        //temporary
+        bracket = new ArrayList<Match[]>();
+        
+        for(int c = 1; c < bracket.size(); c++)
+        {
+            for(int r = 0; r < bracket.get(c).length; r++)
+            {
+                bracket.get(c)[r] = new Match();
+            }
+        }
     }
     
     private ArrayList<String> sortTeams(ArrayList<String> teams) {
