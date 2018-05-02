@@ -11,15 +11,6 @@ public class Tournament {
     
     public Tournament()
     {
- 
-    	teamNames = sortTeams(teamNames);
-    	for(int i =0,j=0; i< teamNames.size()/2; i++, j+=2){
-        	bracket.add(new Match[i]);
-        	bracket.get(0)[i] = new Match(teamNames.get(j), teamNames.get(j+1));
-        }
-        
-        //temporary
-        bracket = new ArrayList<Match[]>();
         //bracket.add(new Match[8]);
         //bracket.add(new Match[4]);
         //bracket.add(new Match[2]);
