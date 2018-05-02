@@ -1,7 +1,12 @@
 package application;
 	
 import javafx.scene.control.Button;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
@@ -16,18 +21,24 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
-
 public class TournamentGUI extends Application {
+	
+	static String fileName;
+	
+	public static void main(String[] args) {
+		fileName = args[0];
+		launch(args);
+	}
     
     public static Tournament tournament;
 	@Override
 	public void start(Stage primaryStage) {
+		ArrayList<String> teams = getTeamList();
 		try {
-		    
 			BorderPane root = new BorderPane();
 			ScrollPane scroll = new ScrollPane();
 			tournament = new Tournament();
-			
+			tournament.teamNames = teams;
 			ArrayList<Match[]> bracket = tournament.getBracket();
 			GridPane grid = new GridPane();
 
@@ -104,7 +115,21 @@ public class TournamentGUI extends Application {
 		}
 	}
 	
-	public static void main(String[] args) {
-		launch(args);
+	private ArrayList<String> getTeamList() {
+		ArrayList<String> teams = null;
+		try{
+			BufferedReader br = new BufferedReader(new FileReader(fileName));
+			String team;
+			while((team = br.readLine()) != null){
+				teams.add(team);
+				System.out.println(team);
+			}
+		}catch(FileNotFoundException fnf){
+			System.out.println("No file found");
+		}catch(Exception e){
+			System.out.println("Something went wrong");
+		}
+		return teams;
 	}
+	
 }
