@@ -1,3 +1,24 @@
+/////////////////////////////////////////////////////////////////////////////
+// Semester:         CS400 Spring 2018
+// PROJECT:          cs400_p2
+// FILES:            Main.java
+//                   Match.java
+//                   Team.java
+//                   Tournament.java
+//
+// USER:             Bryce Campbell (bwcampbell4@wisc.edu)
+//                   Evan Scott (escott7@wisc.edu)
+//
+// Instructor:       Deb Deppeler (deppeler@cs.wisc.edu)
+// Bugs:             no known bugs
+// Outside Sources:  https://www.mkyong.com/java8/java-8-stream-read-a-file-line-by-line/  - Stream
+//                        example
+//
+// Due: 5/3/18 by 10:00 PM
+//
+// 2018 May 2, 2018 9 PM Match.java 
+//////////////////////////// 80 columns wide //////////////////////////////////
+
 package application;
 
 import javafx.scene.control.Alert;
@@ -56,50 +77,56 @@ public class Match {
                     if(Integer.parseInt(team1.getScoreField().getText().trim()) > Integer.parseInt(team2.getScoreField().getText().trim()))
                     {
                       //this if-statement triggers if the submit scores button was pushed on the final match otherwise it updates the team in the next match
-                        if(!TournamentGUI.tournament.setNextTeam(this, team1.getName(), team2))
+                        if(!Main.tournament.setNextTeam(this, team1.getName(), team2))
                         {
-                            String third = ""; //get third place team based on scores of runner ups
-                            if(Integer.parseInt(team1.getRunnerUp().getScoreField().getText()) > (Integer.parseInt(team2.getRunnerUp().getScoreField().getText())))
+                            String third = "None"; //get third place team based on scores of runner ups
+                            if(!(team1.getRunnerUp() == null))
                             {
-                                third = team1.getRunnerUp().getName();
-                            } else if(Integer.parseInt(team1.getRunnerUp().getScoreField().getText()) < (Integer.parseInt(team2.getRunnerUp().getScoreField().getText())))
-                            {
-                                third = team2.getRunnerUp().getName();
-                            } else {//it is possible to tie here so we display both teams
-                                third = team1.getRunnerUp().getName() + " tied with " + team2.getRunnerUp().getName();
+                                if(Integer.parseInt(team1.getRunnerUp().getScoreField().getText()) > (Integer.parseInt(team2.getRunnerUp().getScoreField().getText())))
+                                {
+                                    third = team1.getRunnerUp().getName();
+                                } else if(Integer.parseInt(team1.getRunnerUp().getScoreField().getText()) < (Integer.parseInt(team2.getRunnerUp().getScoreField().getText())))
+                                {
+                                    third = team2.getRunnerUp().getName();
+                                } else {//it is possible to tie here so we display both teams
+                                    third = team1.getRunnerUp().getName() + " tied with " + team2.getRunnerUp().getName();
+                                }
                             }
                             
                             //show alert for winners
-                            alert.setTitle("Tournament Over");
-                            alert.setHeaderText("We have a winner!");
-                            alert.setContentText("First Place: " + team1.getName() + "\nSecond Place: " + team2.getName() + "\nThirdPlace: " + third);
-                            alert.showAndWait();
+                            winners.setTitle("Tournament Over");
+                            winners.setHeaderText("We have a winner!");
+                            winners.setContentText("Champion: " + team1.getName() + "\nSecond Place: " + team2.getName() + "\nThirdPlace: " + third);
+                            winners.showAndWait();
                         }
                         
                         team1.getScoreField().setDisable(true);
                         team2.getScoreField().setDisable(true);
                     } else if(Integer.parseInt(team2.getScoreField().getText().trim()) > Integer.parseInt(team1.getScoreField().getText().trim()))
                     {
-                        if(!TournamentGUI.tournament.setNextTeam(this, team2.getName(), team1))
+                        if(!Main.tournament.setNextTeam(this, team2.getName(), team1))
                         {
                             //this if-statement triggers if the submit scores button was pushed on the final match otherwise it updates the team in the next match
                             
-                            String third = ""; //get third place team based on scores of runner ups
-                            if(Integer.parseInt(team1.getRunnerUp().getScoreField().getText()) > (Integer.parseInt(team2.getRunnerUp().getScoreField().getText())))
+                            String third = "None"; //get third place team based on scores of runner ups
+                            if(!(team1.getRunnerUp() == null))
                             {
-                                third = team1.getRunnerUp().getName();
-                            } else if(Integer.parseInt(team1.getRunnerUp().getScoreField().getText()) < (Integer.parseInt(team2.getRunnerUp().getScoreField().getText())))
-                            {
-                                third = team2.getRunnerUp().getName();
-                            } else { //it is possible to tie here so we display both teams
-                                third = team1.getRunnerUp().getName() + " tied with " + team2.getRunnerUp().getName();
+                                if(Integer.parseInt(team1.getRunnerUp().getScoreField().getText()) > (Integer.parseInt(team2.getRunnerUp().getScoreField().getText())))
+                                {
+                                    third = team1.getRunnerUp().getName();
+                                } else if(Integer.parseInt(team1.getRunnerUp().getScoreField().getText()) < (Integer.parseInt(team2.getRunnerUp().getScoreField().getText())))
+                                {
+                                    third = team2.getRunnerUp().getName();
+                                } else { //it is possible to tie here so we display both teams
+                                    third = team1.getRunnerUp().getName() + " tied with " + team2.getRunnerUp().getName();
+                                }
                             }
                             
                             //show alert for winners
-                            alert.setTitle("Tournament Over");
-                            alert.setHeaderText("We have a winner!");
-                            alert.setContentText("First Place: " + team2.getName() + "\nSecond Place: " + team1.getName() + "\nThirdPlace: " +  third);
-                            alert.showAndWait();
+                            winners.setTitle("Tournament Over");
+                            winners.setHeaderText("We have a winner!");
+                            winners.setContentText("First Place: " + team2.getName() + "\nSecond Place: " + team1.getName() + "\nThirdPlace: " +  third);
+                            winners.showAndWait();
                         }
                         
                         //disable score fields for the completed games
